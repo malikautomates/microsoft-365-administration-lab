@@ -1,0 +1,16 @@
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+*.tmp
+
+# Never commit these
+*.pfx
+*.cer
+*.key
+credentials.csv
+*-secrets.*
+.env
+
+# Graph / Exchange session artefacts
+*.tokencache
