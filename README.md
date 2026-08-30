@@ -38,7 +38,9 @@ PnP.PowerShell throughout. Where a task is genuinely faster in the admin center,
 path is given as an alternative rather than as the primary method.
 
 Standards common to all labs — tooling, naming, licensing model, and security baseline — are
-defined once in [docs/environment.md](docs/environment.md).
+defined once in [docs/environment.md](docs/environment.md). The sequence in which the labs are
+performed, the licensing required for each, and the evidence capture process are set out in
+[docs/execution-plan.md](docs/execution-plan.md).
 
 ---
 
@@ -103,6 +105,7 @@ Status values: `Planned` · `In progress` · `Complete`
 ├── README.md                  Repository index
 ├── docs/
 │   ├── environment.md         Design specification: tooling, naming, licensing, security baseline
+│   ├── execution-plan.md      Sequence, licence gap analysis, and screenshot workflow
 │   ├── naming.md              Organisation naming guide and selection criteria
 │   └── LAB-TEMPLATE.md        Structure applied to every lab document
 ├── labs/
@@ -110,7 +113,8 @@ Status values: `Planned` · `In progress` · `Complete`
 │       ├── README.md          Lab documentation
 │       └── images/            Screenshots referenced by the lab document
 └── scripts/
-    └── Set-LabName.ps1        Applies the chosen organisation name repository-wide
+    ├── Set-LabName.ps1        Applies the chosen organisation name repository-wide
+    └── Test-LabImages.ps1     Reports which lab screenshots are still missing
 ```
 
 ---
