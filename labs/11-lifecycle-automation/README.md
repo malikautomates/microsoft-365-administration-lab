@@ -41,19 +41,31 @@ offboarding automatically rather than depending on someone remembering to do it.
 
 ![New access package: name and catalog](images/11-01-access-package-start.png)
 
+The New access package wizard, where the package's name and catalog are set.
+
 ![Resource roles: Finance (Team, Member), Vortex-Security (Team, Owner), ServiceNow (App), Slack (App), Finance (SharePoint site, Finance Members)](images/11-02-access-package-resource-roles.png)
+
+The resources bundled into the package: Finance and Vortex-Security group membership, the ServiceNow and Slack apps, and the Finance SharePoint site.
 
 ![Lifecycle tab: assignments expire after 90 days, extension requires approval](images/11-03-access-package-lifecycle.png)
 
+The package's lifecycle settings: assignments expire after 90 days, and extending access requires approval.
+
 ![Review and create: 90-day expiry, quarterly review, self-review, 25-day review duration](images/11-04-access-package-review.png)
 
+The completed package reviewed before creation, summarising its expiry, review cadence, and reviewer settings.
+
 ![Access package "Sales Data Access Package" created](images/11-05-access-package-created.png)
+
+Confirmation that the 'Sales Data Access Package' was created.
 
 ---
 
 ### Step 2 — Request access through My Access
 
 ![Finding the package via myaccess.microsoft.com and requesting access](images/11-06-myaccess-request-access.png)
+
+The package being located and requested through myaccess.microsoft.com, the self-service side of entitlement management.
 
 ---
 
@@ -65,13 +77,23 @@ Connect-MgGraph -Scopes 'AccessReview.ReadWrite.All'
 
 ![Access review type: Teams + Groups, all Microsoft 365 groups with guest users, guest users only in scope](images/11-07-access-review-type.png)
 
+A new access review being scoped to Teams and Groups, targeting all Microsoft 365 groups with guest users.
+
 ![Reviewers: group owners, with IT as fallback; duration 3 days, monthly recurrence](images/11-08-access-review-reviewers.png)
+
+The review's reviewers set to group owners, with IT as a fallback, recurring monthly.
 
 ![Settings: auto-apply results, no-response handling, decision helper for no sign-in within 30 days](images/11-09-access-review-settings.png)
 
+The review's completion settings: auto-apply results, and a decision helper flagging accounts with no sign-in in 30 days.
+
 ![Access review "Review guest access across Microsoft 365 groups" created](images/11-10-access-review-created.png)
 
+Confirmation that the access review was created.
+
 ![Access review overview: monthly recurrence, resource owners as reviewers, not started](images/11-11-access-review-overview.png)
+
+The review's overview panel, showing its recurrence and current status.
 
 ---
 
@@ -79,20 +101,34 @@ Connect-MgGraph -Scopes 'AccessReview.ReadWrite.All'
 
 ![Lifecycle workflows overview: schedule runs every 3 hours](images/11-12-lifecycle-workflows-overview.png)
 
+The Lifecycle workflows overview, showing the workflow engine's run schedule.
+
 ![Lifecycle workflows, continued](images/11-13-lifecycle-workflows-overview-2.png)
 
+The same overview, showing workflow counts by state.
+
 ![Choosing the "Offboard an employee" template](images/11-14-offboard-template-choice.png)
+
+The built-in 'Offboard an employee' template being selected as the starting point for the leaver workflow.
 
 The template's default tasks were reviewed rather than customised for this run: disable the
 user account, remove the user from all groups, and remove the user from all Teams.
 
 ![Template tasks: Disable User Account, Remove user from all groups, Remove user from all Teams](images/11-15-offboard-template-tasks.png)
 
+The template's default tasks: disable the user account, remove from all groups, and remove from all Teams.
+
 ![Reviewing a cloned copy of the offboarding workflow before finalising it](images/11-16-offboard-workflow-clone-review.png)
+
+A cloned copy of the workflow reviewed before it's finalised.
 
 ![Offboarding workflow "Offboard an employee" created, trigger: employeeLeaveDateTime](images/11-17-offboard-workflow-created.png)
 
+Confirmation that the offboarding workflow was created, triggered by the employeeLeaveDateTime attribute.
+
 ![Workflow schedule enabled](images/11-18-offboard-workflow-schedule-enabled.png)
+
+The workflow's schedule enabled, so it runs automatically rather than requiring manual triggering.
 
 ---
 

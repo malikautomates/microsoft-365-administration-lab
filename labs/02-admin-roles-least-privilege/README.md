@@ -37,6 +37,8 @@ from the built-in role's fixed permission set.
 
 ![New custom role wizard: name, description, and baseline permissions](images/02-01-custom-role-created.png)
 
+The New custom role wizard, used to confirm what a role built entirely from scratch exposes in its own permissions editor, before deciding the built-in Helpdesk Administrator role was actually the better fit.
+
 ---
 
 ### Step 2 — Assign the Helpdesk Administrator role
@@ -46,11 +48,19 @@ the same session's notifications — to Frank Dugald and to the administrator ac
 
 ![Assigning the Helpdesk Administrator role](images/02-03-assign-helpdesk-role.png)
 
+The role-assignment flow for the built-in Helpdesk Administrator role.
+
 ![Assigning the Helpdesk Administrator role, continued](images/02-04-assign-helpdesk-role-2.png)
+
+The assignment flow continued, selecting the specific member to receive the role.
 
 ![Helpdesk Administrator assignment confirmed for Frank Dugald](images/02-05-helpdesk-role-frank.png)
 
+Confirmation that the Helpdesk Administrator role was assigned to Frank Dugald.
+
 ![Active assignments for Helpdesk Administrator: John Ebuka shown, Muhammed Abdulmalik and Frank Dugald confirmed by notification](images/02-02-role-assigned.png)
+
+The Helpdesk Administrator role's active assignments, listing John Ebuka directly and confirming — via the session's own notifications — that the administrator and Frank Dugald were assigned the same role.
 
 ---
 
@@ -62,11 +72,19 @@ Connect-MgGraph -Scopes 'RoleManagement.ReadWrite.Directory'
 
 ![Privileged Identity Management overview for Microsoft Entra roles](images/02-06-pim-overview.png)
 
+Privileged Identity Management's overview for Microsoft Entra roles, the starting point for converting the Global Administrator role to time-bound activation.
+
 ![Add assignments: Global Administrator role, scoped to the directory, assigned to the administrator account](images/02-07-pim-role-assignment.png)
+
+The PIM Add assignments panel, scoping the Global Administrator role to the directory and selecting the administrator account to receive it.
 
 ![PIM role assignment, continued: eligibility and duration settings](images/02-08-pim-role-assignment-2.png)
 
+The assignment flow continued, where the eligibility and activation duration settings are configured.
+
 ![Global Administrator PIM assignment confirmed](images/02-09-pim-role-assigned.png)
+
+Confirmation that the Global Administrator role is now PIM-managed rather than a standing assignment.
 
 ---
 
@@ -78,7 +96,11 @@ captured here as they came up.
 
 ![Connectors reviewed: none configured, appropriate for a cloud-only tenant with no hybrid relay requirement](images/02-10-connectors-reviewed.png)
 
+Exchange connectors reviewed and confirmed as none configured — the expected state for a cloud-only tenant with no on-premises hybrid mail relay.
+
 ![An existing transport rule reviewed: an external-sender warning banner with a trusted-domain exception](images/02-11-existing-rule-review.png)
+
+An existing Exchange transport rule reviewed: an external-sender warning banner with an exception for two trusted partner domains.
 
 ---
 

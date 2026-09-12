@@ -38,13 +38,23 @@ to a human.
 
 ![Active users before onboarding](images/12-01-active-users-baseline.png)
 
+The active users list before onboarding, establishing the roster's starting point.
+
 ![New user basics: name and username](images/12-02-new-user-basics-review.png)
+
+The new hire's name and username being entered in the Add a user wizard.
 
 ![Optional settings: Job title "Junior Accountant", Department "Finance"](images/12-03-new-user-optional-settings.png)
 
+Job title ('Junior Accountant') and Department ('Finance') set for the new hire.
+
 ![Grace Richardson added to active users](images/12-04-new-user-created-confirmation.png)
 
+Confirmation that Grace Richardson's account was created.
+
 ![Manager assigned: Keith Albalos](images/12-05-new-user-manager-assigned.png)
+
+Keith Albalos set as Grace's manager.
 
 ---
 
@@ -52,9 +62,15 @@ to a human.
 
 ![Grace's account shown unlicensed immediately after creation](images/12-06-new-user-unlicensed-state.png)
 
+The new account shown unlicensed immediately after creation, before any licence is assigned.
+
 ![Decision to use group-based licensing rather than direct assignment](images/12-07-new-user-license-group-based-choice.png)
 
+The decision to licence the new hire through group membership rather than direct assignment.
+
 ![Licence applied to Grace through group membership](images/12-08-new-user-license-applied.png)
+
+The licence applied to the account via that group membership.
 
 ---
 
@@ -62,13 +78,23 @@ to a human.
 
 ![Adding Grace to the Finance group](images/12-09-new-user-added-finance-group.png)
 
+The new hire being added to the Finance group.
+
 ![Finance group membership confirmed](images/12-10-new-user-finance-group-confirmed.png)
+
+Confirmation that the group membership was applied.
 
 ![Finance group members: Grace Richardson, Keith Albalos, Muhammed Abdulmalik](images/12-11-finance-group-members-verification.png)
 
+The Finance group's membership list, verified to include the new hire alongside existing members.
+
 ![Group membership assignment, general view](images/12-12-assigning-group-membership.png)
 
+Group membership being assigned, a general view of the same workflow.
+
 ![Welcome information on using Microsoft apps sent to the new hire](images/12-13-onboarding-welcome-info-sent.png)
+
+Welcome information on using Microsoft apps sent to the new hire as part of onboarding.
 
 ---
 
@@ -79,15 +105,27 @@ enough to run the rest of this lab's support tasks without standing Global Admin
 
 ![Assigning Wale Adebimpe the required helpdesk admin roles](images/12-14-helpdesk-admin-roles-assigned.png)
 
+Wale Adebimpe being assigned the AI Administrator, Helpdesk Administrator, and Teams Administrator roles needed for this lab's support work.
+
 ![Helpdesk administrator's own admin center home page](images/12-15-helpdesk-admin-home.png)
+
+The helpdesk administrator's own admin center home page, confirming the delegated account is functional.
 
 ![Helpdesk administrator performing a new-user onboarding task](images/12-16-helpdesk-admin-onboarding-task.png)
 
+The helpdesk administrator performing an onboarding task for the new user, using their delegated access.
+
 ![Welcome message received on the helpdesk admin account's first sign-in](images/12-17-helpdesk-admin-first-signin-message.png)
+
+The welcome message received on the helpdesk admin account's first sign-in.
 
 ![Setting up multi-factor authentication for the new helpdesk admin account](images/12-18-helpdesk-admin-mfa-setup.png)
 
+Multi-factor authentication being set up for the new helpdesk admin account.
+
 ![Microsoft Authenticator added as the sign-in method](images/12-19-helpdesk-admin-authenticator-added.png)
+
+Confirmation that Microsoft Authenticator was added as the account's sign-in method.
 
 ---
 
@@ -95,11 +133,19 @@ enough to run the rest of this lab's support tasks without standing Global Admin
 
 ![Registering a device to the tenant](images/12-20-device-registration.png)
 
+A device being registered to the tenant.
+
 ![Device setup in progress](images/12-21-device-setup-wait.png)
+
+The device registration process in progress.
 
 ![Device registration complete](images/12-22-device-registration-complete.png)
 
+Confirmation that device registration completed.
+
 ![Assigning the device](images/12-23-assigning-device.png)
+
+The registered device being assigned in Intune.
 
 ---
 
@@ -110,7 +156,11 @@ as a password issue and resolved it directly, rather than escalating.
 
 ![Helping a user who can't access their account](images/12-24-helpdesk-password-reset-scenario.png)
 
+A genuine support case: a user unable to access their account, being helped directly by the helpdesk administrator.
+
 ![Password reset completed](images/12-25-helpdesk-password-reset-done.png)
+
+Confirmation that the password reset resolved the case.
 
 ---
 
@@ -121,7 +171,11 @@ action from ones that don't.
 
 ![A real message center item under review](images/12-26-message-center-real-item.png)
 
+A real message center item under review as part of routine triage.
+
 ![Message center response log: a low-priority Teams feature update, logged with no action required](images/12-27-message-center-response-log.png)
+
+The message center response log, tracking each reviewed item, its impact, and whether any action was required.
 
 The full log is kept alongside this README at
 [`Message-Center-Response-Log.docx`](Message-Center-Response-Log.docx).
@@ -134,23 +188,43 @@ Access was contained first, in order, before the slower cleanup steps.
 
 ![Beginning Frank Dugald's offboarding](images/12-28-offboard-frank-start.png)
 
+The start of Frank Dugald's offboarding process.
+
 ![Blocking sign-in](images/12-29-offboard-frank-block-signin.png)
+
+Sign-in being blocked as the first containment step.
 
 ![Sign-in blocked, confirmed](images/12-30-offboard-frank-block-signin-done.png)
 
+Confirmation that sign-in was blocked.
+
 ![Revoking active sessions](images/12-31-offboard-frank-revoke-session.png)
+
+Active sessions being revoked, forcing immediate re-authentication.
 
 ![Sessions revoked, confirmed](images/12-32-offboard-frank-revoke-session-done.png)
 
+Confirmation that sessions were revoked.
+
 ![Removing licences](images/12-33-offboard-frank-remove-license.png)
+
+Licences being removed from the account.
 
 ![Licences removed, confirmed](images/12-34-offboard-frank-remove-license-done.png)
 
+Confirmation that licences were removed.
+
 ![Converting the mailbox to a shared mailbox, so correspondence remains accessible to the team](images/12-35-offboard-frank-convert-mailbox.png)
+
+The mailbox being converted to a shared mailbox, so the team retains access to relevant correspondence.
 
 ![Mailbox conversion complete](images/12-36-offboard-frank-convert-mailbox-done.png)
 
+Confirmation that the mailbox conversion completed.
+
 ![Resetting the password as a final containment step](images/12-37-offboard-frank-reset-password.png)
+
+The account's password reset as a final containment step, after access was already blocked.
 
 ---
 

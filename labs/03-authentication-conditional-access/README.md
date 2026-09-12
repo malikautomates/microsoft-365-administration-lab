@@ -36,11 +36,15 @@ off first so a Conditional Access policy could take effect at all.
 
 ![Disabling security defaults](images/03-04-security-defaults-disabled.png)
 
+Security defaults being turned off, a required first step since security defaults and Conditional Access cannot both be active.
+
 ---
 
 ### Step 2 — Build a Conditional Access policy in report-only mode
 
 ![Conditional Access policies landing page](images/03-01-ca-new-policy.png)
+
+The Conditional Access Policies landing page in the Entra admin center, where a new policy is started.
 
 A new policy — **Device compliance app policy** — was scoped to specific users and all
 resources, with a single grant control requiring the signing-in device to be marked compliant.
@@ -48,7 +52,11 @@ It was created with **Enable policy** set to **Report-only**, not On.
 
 ![New Conditional Access policy: specific users, all resources, one grant control, Report-only](images/03-03-ca-policy-creation-detail.png)
 
+The new policy's configuration: scoped to specific users and all resources, with one grant control, and Enable policy deliberately left on Report-only rather than On.
+
 ![Policy created: 'Device compliance app policy'](images/03-02-ca-policy-created.png)
+
+Confirmation that the 'Device compliance app policy' Conditional Access policy was created.
 
 This policy is the Conditional Access half of the device-compliance pairing completed in
 Lab 09, where the matching Intune compliance policy is built and the two are linked together.
@@ -62,7 +70,11 @@ authentication method was updated accordingly.
 
 ![Passkey set up](images/03-06-passkey-setup.png)
 
+A passkey being registered as an available authentication method.
+
 ![Authentication method saved as the tenant default](images/03-05-auth-method-default.png)
+
+The tenant's authentication method configuration, saved with the new default method in place.
 
 ---
 
@@ -74,7 +86,11 @@ Connect-MgGraph -Scopes 'Policy.ReadWrite.Authorization'
 
 ![Self-service password reset settings](images/03-07-sspr-settings.png)
 
+Self-service password reset settings, reviewed before enabling the feature.
+
 ![Self-service password reset enabled in Entra ID](images/03-08-sspr-enabled.png)
+
+Confirmation that self-service password reset is enabled for the tenant.
 
 ---
 

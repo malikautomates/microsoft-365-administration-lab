@@ -38,7 +38,11 @@ Set-CsTeamsCreationPolicy -Identity Global -AllowTeamCreation $false
 
 ![Restrict who can create teams](images/06-01-restrict-team-creation.png)
 
+The Teams creation policy being changed to restrict who can create new teams.
+
 ![Restriction saved](images/06-02-restrict-team-creation-saved.png)
+
+Confirmation that the restriction was saved.
 
 ---
 
@@ -46,9 +50,15 @@ Set-CsTeamsCreationPolicy -Identity Global -AllowTeamCreation $false
 
 ![Meeting policy: who can bypass the lobby](images/06-04-meeting-policy-lobby-bypass.png)
 
+The 'who can bypass the lobby' setting, scoped so only people inside the organisation skip the lobby.
+
 ![Meeting policy: join and lobby settings](images/06-03-meeting-policy-join-lobby.png)
 
+Meeting join and lobby settings, controlling how participants enter a Teams meeting.
+
 ![Meeting policy: recording and transcription](images/06-05-meeting-policy-recording.png)
+
+Recording and transcription policy settings for meetings.
 
 ---
 
@@ -56,7 +66,11 @@ Set-CsTeamsCreationPolicy -Identity Global -AllowTeamCreation $false
 
 ![Messaging policy](images/06-06-messaging-policy.png)
 
+Messaging policy settings, controlling what chat participants can do, such as editing or deleting sent messages.
+
 ![External access policy](images/06-07-external-access-policy.png)
+
+External access policy, controlling communication with people outside the organisation.
 
 ---
 
@@ -67,6 +81,8 @@ Get-CsTeamsUsageReport
 ```
 
 ![Teams usage report dashboard](images/06-08-teams-usage-report.png)
+
+The Teams usage report dashboard, used to confirm the policies above are actually being exercised by real activity.
 
 ---
 
