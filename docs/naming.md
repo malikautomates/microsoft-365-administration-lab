@@ -1,6 +1,6 @@
 # Organisation Naming Guide
 
-**Document status:** Action required
+**Document status:** Resolved
 **Owner:** Repository author
 
 ---
@@ -8,15 +8,24 @@
 ## 1. Purpose
 
 This laboratory models a fictional organisation. All documentation and scripts reference that
-organisation by name. This document defines the three values that must be selected, the
-constraints applying to each, and the procedure for applying them.
+organisation by name. This document defines the three values selected, the constraints that
+applied to each, and the procedure used to apply them.
 
-The organisation name has not been selected. Until it is, the repository carries placeholder
-tokens.
+### Selected values
+
+| Token | Value |
+|---|---|
+| `{{COMPANY}}` | `Vortex AI` |
+| `{{ROOT_DOMAIN}}` | *(none — see below)* |
+| `{{TENANT}}` | `VortexAI654` |
+
+No custom domain was added to the tenant. Every account uses the initial
+`VortexAI654.onmicrosoft.com` domain throughout, per the fallback documented in §3.2 — a
+deliberate choice recorded here rather than an omission.
 
 ---
 
-## 2. Values to be selected
+## 2. Token reference
 
 | Token | Description | Constraints |
 |---|---|---|
@@ -83,6 +92,19 @@ as independent pieces of work, use distinct names.
 
 ## 4. Application procedure
 
+`scripts/Set-LabName.ps1` applies a token map repository-wide and requires `{{ROOT_DOMAIN}}` to
+be a real domain string, so it cannot represent "no custom domain" directly. Because this
+tenant uses the initial domain throughout (§3.2), the substitution here was applied directly
+against the token map below rather than through the script:
+
+| Token | Value |
+|---|---|
+| `{{COMPANY}}` | `Vortex AI` |
+| `{{TENANT}}` | `VortexAI654` |
+| `{{ROOT_DOMAIN}}` references | Replaced with `VortexAI654.onmicrosoft.com` where a UPN suffix was needed; "Custom domain" rows updated to state none was added |
+
+For a lab environment that *does* add a custom domain, apply it the standard way instead:
+
 ```powershell
 cd <repository root>
 
@@ -93,7 +115,6 @@ cd <repository root>
 ```
 
 Run with `-WhatIf` first to review the files that would be modified without writing changes.
-
 The script validates the tenant name format and rejects reserved values before writing.
 
 ---
