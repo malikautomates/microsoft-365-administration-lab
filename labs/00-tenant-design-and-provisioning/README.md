@@ -23,7 +23,7 @@ sufficient for the identity, security, and compliance work planned in Labs 01 th
 | Decision | Options considered | Selected | Rationale |
 |---|---|---|---|
 | Custom domain | Add and verify a purchased domain; use the initial `.onmicrosoft.com` domain | Use the initial domain | No production domain was available to dedicate to a lab tenant without risking live mail flow. `VortexAI654.onmicrosoft.com` is used as the UPN suffix throughout, consistent with the fallback this repository documents in [docs/naming.md](../../docs/naming.md) §3.2. |
-| Licence tier | Stay on Business Standard; activate a Microsoft 365 E5 trial | Activate the E5 trial | The tenant's existing Business Standard subscription was already over-assigned (4 licences consumed against 1 seat) and does not include Entra ID P1/P2, Intune, Purview DLP, or Defender for Office 365 Plan 2 — all required by later labs. Activating the E5 trial on top of the existing subscription follows the recommendation in [docs/execution-plan.md](../../docs/execution-plan.md) §2 and unlocks every lab at no additional cost inside the trial window. |
+| Licence tier | Stay on Business Standard; activate a Microsoft 365 E5 trial | Activate the E5 trial | The tenant's existing Business Standard subscription was already over-assigned (4 licences consumed against 1 seat) and does not include Entra ID P1/P2, Intune, Purview DLP, or Defender for Office 365 Plan 2 — all required by later labs. A Microsoft 365 E5 trial stacks alongside the existing subscription and unlocks every lab at no additional cost inside the trial window. |
 
 ---
 
@@ -71,8 +71,7 @@ Conditional Access and group-based licensing before Lab 01 even starts.
 
 ### Step 4 — Close the gap with a Microsoft 365 E5 trial
 
-Following the gap analysis in [docs/execution-plan.md](../../docs/execution-plan.md) §2, a
-Microsoft 365 E5 trial was activated from **Billing → Purchase services** to stack alongside
+A Microsoft 365 E5 trial was activated from **Billing → Purchase services** to stack alongside
 the existing Business Standard subscription. `[CONFIRM: exact activation date and trial
 duration]` — the trial's effect is visible from Lab 01 onward, where accounts consistently carry
 Microsoft 365 E5 and Microsoft Entra ID P2 licences, and Lab 09 confirms 25 total Intune
@@ -117,8 +116,10 @@ Standard seat, with the admin center's own "more assigned than available" warnin
 
 **Diagnosis.** `Get-MgSubscribedSku` confirmed `ConsumedUnits` (4) exceeding
 `PrepaidUnits.Enabled` (1) for the `O365_BUSINESS_PREMIUM` SKU — the part number that,
-confusingly, corresponds to Business *Standard* rather than Business *Premium* (see the naming
-trap documented in [docs/execution-plan.md](../../docs/execution-plan.md) §1).
+confusingly, corresponds to Business *Standard* rather than Business *Premium*. The string
+contains the word "premium" but the product is Standard, and it does **not** include Entra ID
+P1 — a naming collision worth watching for, since it causes more incorrect capability
+assumptions than any other in Microsoft 365 licensing.
 
 **Cause.** The tenant had more user accounts requiring a licence than paid Business Standard
 seats, and none of those accounts could take Entra ID P1-dependent features regardless, since

@@ -95,9 +95,9 @@ Connect-MgGraph -Scopes 'Policy.ReadWrite.Authorization'
 **Symptom.** None — this is a gap identified on review rather than an error encountered during
 the build.
 
-**Cause.** [docs/execution-plan.md](../../docs/execution-plan.md) §5.1 calls for two break-glass
-accounts, excluded from every Conditional Access policy, created *before* any policy work
-begins. No such accounts exist in the active users list reviewed across Labs 01 and 12.
+**Cause.** Standard Conditional Access practice calls for two break-glass accounts, excluded
+from every policy, created *before* any policy work begins. No such accounts exist in the
+active users list reviewed across Labs 01 and 12.
 
 **Resolution.** Because the policy built here was created in report-only mode and scoped to
 specific users rather than enforced tenant-wide, the absence of a break-glass account did not

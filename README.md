@@ -49,9 +49,8 @@ PowerShell where it made the intent explicit and repeatable, the admin center wh
 genuinely the faster and more direct path.
 
 Standards common to all labs — tooling, naming, licensing model, and security baseline — are
-defined once in [docs/environment.md](docs/environment.md). The sequence in which the labs were
-performed, the licence gap that had to be closed first, and the screenshot and redaction
-workflow are set out in [docs/execution-plan.md](docs/execution-plan.md).
+defined once in [docs/environment.md](docs/environment.md). Each lab's own README records the
+sequence, prerequisites, and licence dependencies specific to it.
 
 ---
 
@@ -140,7 +139,6 @@ a permissions screenshot.
 ├── README.md                  Repository index
 ├── docs/
 │   ├── environment.md         Design specification: tooling, naming, licensing, security baseline
-│   ├── execution-plan.md      Sequence, licence gap analysis, and screenshot workflow
 │   ├── naming.md              Organisation naming guide and the values selected
 │   └── LAB-TEMPLATE.md        Structure applied to every lab document
 ├── labs/
