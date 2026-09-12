@@ -36,6 +36,8 @@ account for day-to-day device management.
 
 ![Tenant status page showing Microsoft Intune as the MDM authority](images/09-01-mdm-authority-status.png)
 
+The tenant status page confirming Microsoft Intune is set as the Mobile Device Management (MDM) authority.
+
 ---
 
 ### Step 2 — Build the compliance policy
@@ -46,11 +48,19 @@ account for day-to-day device management.
 
 ![Compliance policy: platform and profile type](images/09-02-compliance-policy-start.png)
 
+The Windows 10/11 compliance policy wizard being started.
+
 ![Compliance policy settings: Device Health, Device Properties, System Security](images/09-03-compliance-policy-settings.png)
+
+The compliance settings categories — Device Health, Device Properties, System Security — being configured.
 
 ![Actions for noncompliance: mark device noncompliant immediately](images/09-04-compliance-policy-actions.png)
 
+The action for noncompliance set to mark a device noncompliant immediately, rather than after a grace period.
+
 ![Compliance policy "Baseline Compliance" created, assigned to all devices](images/09-05-compliance-policy-created.png)
+
+Confirmation that the 'Baseline Compliance' policy was created and assigned to all devices.
 
 ---
 
@@ -64,17 +74,31 @@ checks for.
 
 ![Create policy panel: Windows 10 and later, settings catalog profile type](images/09-06-intune-policy-create-start.png)
 
+The Create policy panel used to start building the settings-catalog configuration profile that comes next.
+
 ![Creating a configuration profile: settings catalog](images/09-07-configuration-profile-start.png)
+
+The configuration profile creation flow, using the settings catalog rather than a fixed template.
 
 ![Configuration profile: platform selection](images/09-08-configuration-profile-platform.png)
 
+The profile's target platform being selected.
+
 ![Configuration profile settings: BitLocker recovery password rotation and standard-user encryption](images/09-09-configuration-profile-settings.png)
+
+BitLocker settings being configured: recovery password rotation and standard-user encryption behaviour.
 
 ![Configuration profile assignments](images/09-10-configuration-profile-assignments.png)
 
+The profile's assignment scope being set.
+
 ![Configuration profile review](images/09-11-configuration-profile-review.png)
 
+The completed profile reviewed before creation.
+
 ![Configuration profile "Baseline Security Config" created](images/09-12-configuration-profile-created.png)
+
+Confirmation that the 'Baseline Security Config' profile was created.
 
 ---
 
@@ -82,13 +106,23 @@ checks for.
 
 ![Enrollment device limit restrictions: 5 devices per user](images/09-13-enrollment-device-limits.png)
 
+The enrolment device limit restriction, capping each user at 5 enrolled devices.
+
 ![Enrolling a test device](images/09-14-enrolling-test-device.png)
+
+A test device being enrolled into Intune.
 
 ![Device connected to Intune](images/09-15-device-connected.png)
 
+Confirmation that the device connected successfully.
+
 ![Intune admin center before enrolment: no devices](images/09-16-intune-no-devices.png)
 
+The Intune admin center's device list before enrolment, showing zero devices.
+
 ![Intune admin center after enrolment: one Windows device shown, personally owned, compliant](images/09-17-intune-device-connected.png)
+
+The same device list after enrolment, showing one Windows device, personally owned, marked Compliant.
 
 ---
 
@@ -96,7 +130,11 @@ checks for.
 
 ![Pairing the compliance policy with the Conditional Access policy from Lab 03](images/09-18-pair-compliance-with-ca.png)
 
+The compliance policy being paired with the Conditional Access policy built in Lab 03.
+
 ![Compliance and Conditional Access pairing confirmed](images/09-19-pair-compliance-with-ca-created.png)
+
+Confirmation that the compliance/Conditional Access pairing was applied.
 
 ---
 
@@ -108,7 +146,11 @@ checks for.
 
 ![Assigning the Intune Administrator role via PIM](images/09-20-intune-admin-role-assignment.png)
 
+The Intune Administrator role being assigned via PIM rather than as a standing assignment.
+
 ![Intune Administrator PIM assignment, continued](images/09-21-intune-admin-role-assignment-2.png)
+
+The PIM assignment flow continued.
 
 ---
 
@@ -119,9 +161,15 @@ demonstrate app registration and assignment outside of the device-management wor
 
 ![Browsing the Microsoft Entra app gallery](images/09-22-enterprise-app-gallery-browse.png)
 
+The Microsoft Entra enterprise app gallery being browsed to register a new application.
+
 ![ServiceNow enterprise app added](images/09-23-enterprise-app-added.png)
 
+Confirmation that the ServiceNow application was added.
+
 ![Enterprise app assignment](images/09-24-enterprise-app-assignment.png)
+
+The new application assigned to users, completing its registration.
 
 ---
 

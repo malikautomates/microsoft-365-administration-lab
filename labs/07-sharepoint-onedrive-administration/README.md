@@ -33,7 +33,11 @@ it — the layered model SharePoint actually uses rather than a single global sw
 
 ![Sharing settings page: SharePoint and OneDrive sliders and their current levels](images/07-01-sharing-settings-overview.png)
 
+The SharePoint and OneDrive sharing settings page, showing both sliders and their current permissiveness level.
+
 ![Both sliders set to New and existing guests](images/07-02-sharing-settings-guests.png)
+
+Both sliders set to 'New and existing guests' — the tenant-wide default chosen for this environment.
 
 ---
 
@@ -46,10 +50,14 @@ Set-SPOTenant -OneDriveStorageQuota 1048576
 
 ![OneDrive settings](images/07-03-onedrive-settings.png)
 
+OneDrive-specific settings reviewed separately from the SharePoint-wide defaults.
+
 A per-user OneDrive override was also demonstrated, showing sharing can be tightened or loosened
 for one person independent of the org-wide default.
 
 ![Per-user OneDrive sharing override](images/07-04-onedrive-per-user-override.png)
+
+A per-user OneDrive sharing override, showing sharing can be tightened or loosened for one person independent of the tenant default.
 
 ---
 
@@ -62,14 +70,22 @@ New-SPOSite -Url https://VortexAI654.sharepoint.com/sites/GetTrained `
 
 ![Creating a site and overriding sharing at the site level](images/07-05-site-creation-sharing-override.png)
 
+A new SharePoint site being created, with its sharing level overridden away from the tenant default.
+
 ![Site created](images/07-06-site-created.png)
 
+Confirmation that the site was created.
+
 ![Site-level sharing override applied](images/07-07-site-level-sharing-override.png)
+
+The site's own sharing settings panel, showing the override applied at the site level.
 
 The resulting site uses SharePoint's built-in training-site template, populated with Microsoft's
 own sample content.
 
 ![Training site, built from the training-course site template](images/07-08-training-site-example.png)
+
+The resulting site, built from SharePoint's built-in training-course template.
 
 ---
 

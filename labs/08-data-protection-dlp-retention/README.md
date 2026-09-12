@@ -49,13 +49,23 @@ New-Label -Name "Confidential - Internal Only" `
 
 ![Sensitivity label created via PowerShell, with encryption and a content marking footer](images/08-01-sensitivity-label-powershell.png)
 
+The New-Label PowerShell command creating the sensitivity label, with encryption and a content marking footer both configured explicitly.
+
 ![Choosing the label to publish](images/08-02-sensitivity-label-publish-choice.png)
+
+Choosing which label to publish to users.
 
 ![Publish confirmation](images/08-03-sensitivity-label-publish-confirmation.png)
 
+Confirmation that the label publishing policy was created.
+
 ![Label policy detail: "CONFIDENTIAL — VortexAI654 Internal Use Only", published to all accounts, justification required to remove or downgrade](images/08-04-sensitivity-label-policy-detail.png)
 
+The published label policy's detail view, showing it applied to all accounts with justification required to remove or downgrade it.
+
 ![Content marking footer preview](images/08-05-content-marking-preview.png)
+
+A preview of the content marking footer the label adds to labelled documents and emails.
 
 ---
 
@@ -63,16 +73,26 @@ New-Label -Name "Confidential - Internal Only" `
 
 ![Choosing a DLP policy template — a custom policy built from scratch](images/08-06-dlp-policy-template-choice.png)
 
+Choosing to build the DLP policy as a custom policy rather than from a pre-built template.
+
 ![DLP policy rule: detecting credit card numbers at high confidence, blocking external sharing](images/08-07-dlp-policy-rule-creation.png)
 
+The DLP rule being configured to detect credit card numbers at high confidence and block external sharing.
+
 ![DLP policy overview: locations covered (Exchange, SharePoint, OneDrive, Teams) and current mode](images/08-08-dlp-policy-overview.png)
+
+The new DLP policy's overview, showing the locations it covers: Exchange, SharePoint, OneDrive, and Teams.
 
 Policy mode was set to **run in simulation** rather than turned on immediately, so matches could
 be reviewed before the policy could block or warn on real content.
 
 ![Policy mode set to simulation](images/08-09-dlp-policy-mode.png)
 
+The policy mode deliberately set to run in simulation rather than enforce immediately.
+
 ![New DLP policy created](images/08-10-dlp-policy-created.png)
+
+Confirmation that the DLP policy was created.
 
 ---
 
@@ -88,11 +108,19 @@ New-RetentionComplianceRule -Policy 'Retention - 3 Year Baseline' `
 
 ![Retention policy type: retain for a specific period](images/08-11-retention-policy-type.png)
 
+The retention policy type being set to retain content for a specific period.
+
 ![Retention duration set to 3 years, deleting automatically at the end of the period](images/08-12-retention-policy-duration.png)
+
+The retention duration configured to 3 years, deleting content automatically once that period ends.
 
 ![Retention policy locations: Exchange mailboxes and OneDrive accounts](images/08-13-retention-policy-locations.png)
 
+The retention policy scoped to Exchange mailboxes and OneDrive accounts specifically.
+
 ![Retention policy created](images/08-14-retention-policy-created.png)
+
+Confirmation that the retention policy was created.
 
 ---
 

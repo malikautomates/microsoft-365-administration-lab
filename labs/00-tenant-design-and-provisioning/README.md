@@ -36,6 +36,8 @@ page for the account already in place.
 
 ![Microsoft 365 admin center home page for the existing tenant](images/00-01-tenant-home.png)
 
+This is the Microsoft 365 admin center's landing page for the tenant, confirming the administrator is signed in and establishing the baseline environment before any configuration changes were made.
+
 ---
 
 ### Step 2 — Review the organisation profile
@@ -45,6 +47,8 @@ Org settings → Organization profile** before making any changes, to establish 
 been configured versus what remained at Microsoft's defaults.
 
 ![Organization profile settings reviewed under Org settings](images/00-02-organization-profile.png)
+
+The Organization profile settings page, reviewed to see what contact, branding, and support information was already configured versus left at Microsoft's defaults.
 
 ---
 
@@ -67,6 +71,8 @@ Conditional Access and group-based licensing before Lab 01 even starts.
 
 ![Licenses page showing Business Standard over-assigned, 4 consumed against 1 available seat](images/00-03-license-overview.png)
 
+The Licenses page, showing a single Microsoft 365 Business Standard subscription with only one seat purchased against four assigned licences — the over-assignment warning that triggered this lab's licence-gap investigation.
+
 ---
 
 ### Step 4 — Close the gap with a Microsoft 365 E5 trial
@@ -86,6 +92,8 @@ No custom domain was added. The tenant's only domain is its initial, immutable
 
 ![Domains page showing VortexAI654.onmicrosoft.com as the only, default, healthy domain](images/00-04-domain-verification.png)
 
+The Domains page, confirming VortexAI654.onmicrosoft.com is the tenant's only domain, marked Default and Healthy, with no custom domain added.
+
 ---
 
 ### Step 6 — Confirm the tenant baseline after assessment
@@ -94,6 +102,8 @@ With the licence gap closed and the domain confirmed, the admin center home page
 as the closing baseline check before Lab 01 begins provisioning accounts against it.
 
 ![Admin center home page revisited as the post-assessment baseline](images/00-05-tenant-id-overview.png)
+
+The admin center home page revisited after the licence gap was closed and the domain confirmed, serving as the closing baseline check before Lab 01 begins.
 
 ---
 

@@ -42,9 +42,15 @@ the former for user and licence management, the latter for identity and group co
 
 ![Microsoft 365 admin center home page](images/01-01-entra-admin-center-home.png)
 
+The Microsoft 365 admin center home page, the starting point for this lab's user and licence management work.
+
 ![Entra admin center overview: 4 users, 2 groups, 1 device, Identity Secure Score 73.68%](images/01-02-tenant-overview.png)
 
+The Entra admin center's tenant overview, showing 4 users, 2 groups, and an Identity Secure Score of 73.68% before this lab's account creation began.
+
 ![Admin account overview: roles, groups, and last sign-in for the Global Administrator](images/01-03-admin-account-overview.png)
+
+The administrator's own account overview in the Microsoft 365 admin center, showing assigned roles and group memberships.
 
 ---
 
@@ -55,16 +61,26 @@ identity and optional profile details at creation time.
 
 ![Add a user wizard, basics step](images/01-04-add-user-start.png)
 
+The first step of the Add a user wizard, where a new staff account's basic identity details are entered.
+
 ![Optional settings step of the wizard, showing the contact-info fields left as placeholder data](images/01-05-new-user-basic-info.png)
+
+The wizard's Optional settings step, where job title, department, and contact fields are set — the contact fields here were left as placeholder data rather than real personal information.
 
 ![Frank Dugald created](images/01-06-user-created-frank.png)
 
+Confirmation that Frank Dugald's account was created successfully.
+
 ![Samuel Banks created](images/01-07-user-created-samuel.png)
+
+Confirmation that Samuel Banks's account was created successfully.
 
 Before these two were added, the tenant already held three staff accounts — John Ebuka, Keith
 Albalos, and Wale Adebimpe — alongside the administrator.
 
 ![All users at that point: John Ebuka, Keith Albalos, Muhammed Abdulmalik, Wale Adebimpe](images/01-08-all-users-created.png)
+
+The staff roster that already existed in the tenant before this lab's additions — John Ebuka, Keith Albalos, and Wale Adebimpe, alongside the administrator.
 
 ---
 
@@ -75,18 +91,26 @@ page are where job title, department, and contact fields are reviewed and edited
 
 ![Admin account's Identity and Contact Information panels](images/01-09-admin-user-properties.png)
 
+The administrator's Identity and Contact Information panels in the Entra admin center, showing where profile attributes are reviewed and edited (personal contact details redacted).
+
 The **Manage contact information** dialog was used to demonstrate setting Job title and
 Department — shown here against the administrator's own profile (Job title "HR Manager",
 Department "HR").
 
 ![Manage contact information dialog: job title and department fields](images/01-10-user-department-attribute.png)
 
+The Manage contact information dialog, used here to demonstrate setting the Job title and Department fields on a user's profile.
+
 The same fields were set for staff accounts, including Wale Adebimpe's department (IT) and
 Keith Albalos's contact information.
 
 ![Wale Adebimpe's department set to IT](images/01-11-user-department-it-wale.png)
 
+Wale Adebimpe's Department field set to IT, an example of the same attribute-editing process applied to a staff account.
+
 ![Keith Albalos's contact information](images/01-12-user-contact-info-keith.png)
+
+Keith Albalos's contact information, reviewed and edited using the same panel.
 
 ---
 
@@ -101,7 +125,11 @@ Get-MgSubscribedSku |
 
 ![Licensing overview in the Microsoft 365 admin center](images/01-13-licensing-overview.png)
 
+The Microsoft 365 admin center's Licensing overview, the starting point for reviewing what's assigned tenant-wide.
+
 ![Entra admin center Licenses \| All products: Entra ID P2 at 0 of 25 assigned, Business Standard over-assigned at 4 of 1](images/01-14-licensing-page.png)
+
+The Entra admin center's Licenses | All products view, showing Entra ID P2 fully available (0 of 25 assigned) alongside the Business Standard over-assignment carried over from Lab 00.
 
 The Business Standard over-assignment identified while baselining the tenant in Lab 00 carried
 through here directly: the administrator's own account shows Business Standard fully consumed
@@ -109,7 +137,11 @@ through here directly: the administrator's own account shows Business Standard f
 
 ![Administrator's own Licenses and apps tab: Business Standard and Entra ID P2 both assigned](images/01-15-licensing-detail.png)
 
+The administrator's own Licenses and apps tab, showing both Business Standard and Entra ID P2 assigned to that account.
+
 ![License usage report: Entra ID P1 and P2 both provisioned at 25 seats each](images/01-16-licence-usage.png)
+
+The License usage report, confirming Entra ID P1 and P2 are both provisioned at 25 seats each following the E5 trial activation.
 
 ---
 
@@ -120,16 +152,26 @@ and `All Company` groups, giving each modelled department a collaboration space.
 
 ![Active teams and groups: All Company, Finance, HR, IT](images/01-17-groups-overview.png)
 
+The Active teams and groups list, showing the Finance and IT collaboration groups created in this lab alongside the pre-existing HR and All Company groups.
+
 ![Creating a security group](images/01-18-creating-security-group.png)
 
+The security group creation flow, used to build a group scoped purely to resource access rather than collaboration.
+
 ![Security group created](images/01-19-security-group-created.png)
+
+Confirmation that the security group was created.
 
 A dedicated security group, `Vortex-Security`, was created separately from the collaboration
 groups above, scoped purely to resource access rather than department membership.
 
 ![Vortex-Security group overview: Assigned membership, 2 direct members, Security type](images/01-20-security-group-info.png)
 
+The Vortex-Security group's overview panel, showing it as an Assigned-membership, cloud-based Security group with two direct members.
+
 ![Finance group created](images/01-21-finance-group-created.png)
+
+Confirmation that the Finance collaboration group was created.
 
 ---
 
@@ -140,11 +182,19 @@ relying on them elsewhere.
 
 ![Adding members to a security group](images/01-22-adding-group-members.png)
 
+Adding a member to a security group, exercising the membership-management workflow directly.
+
 ![Member added confirmation](images/01-23-member-added.png)
+
+Confirmation that the member was added successfully.
 
 ![Members can also be removed — the removal control in the same panel](images/01-24-member-removal-option.png)
 
+The same panel showing the removal control, confirming members can be removed through the identical interface.
+
 ![Member removed from the security group](images/01-25-member-removed.png)
+
+Confirmation that a member was removed from the group.
 
 ---
 
@@ -156,12 +206,18 @@ Connect-MgGraph -Scopes 'UserAuthenticationMethod.ReadWrite.All'
 
 ![Resetting Keith Albalos's password from the admin center](images/01-26-password-reset-keith.png)
 
+Resetting Keith Albalos's password from the Microsoft 365 admin center, exercising the standard password-reset workflow.
+
 ![Password reset completed for Keith Albalos](images/01-27-password-reset-keith-done.png)
+
+Confirmation that the password reset completed successfully.
 
 The Service health dashboard was checked as a closing step, confirming no active incidents were
 affecting the workloads just configured.
 
 ![Service health dashboard, no active incidents](images/01-28-service-health-dashboard.png)
+
+The Service health dashboard, checked as a closing step to confirm no active Microsoft-side incidents were affecting the workloads just configured.
 
 ---
 

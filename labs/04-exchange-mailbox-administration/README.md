@@ -40,6 +40,8 @@ New-Mailbox -Shared -Name 'Support' -DisplayName 'Support' `
 
 ![Shared mailbox created](images/04-01-shared-mailbox-created.png)
 
+Confirmation that the Support shared mailbox was created.
+
 ---
 
 ### Step 2 — Grant Full Access
@@ -50,6 +52,8 @@ Add-MailboxPermission -Identity 'support@VortexAI654.onmicrosoft.com' `
 ```
 
 ![Full Access permission granted](images/04-02-full-access-permission.png)
+
+Full Access permission granted to a delegate, allowing them to open and read the shared mailbox directly.
 
 ---
 
@@ -62,6 +66,8 @@ Add-RecipientPermission -Identity 'support@VortexAI654.onmicrosoft.com' `
 
 ![Send As permission granted](images/04-03-send-as-permission.png)
 
+Send As permission granted, letting the delegate send mail that appears to come directly from the shared mailbox.
+
 ---
 
 ### Step 4 — Grant Send on Behalf
@@ -73,7 +79,11 @@ Set-Mailbox -Identity 'support@VortexAI654.onmicrosoft.com' `
 
 ![Send on Behalf permission, configuration](images/04-04-send-on-behalf-permission.png)
 
+Send on Behalf permission being configured, the alternative to Send As that marks outgoing mail as sent 'on behalf of' the mailbox.
+
 ![Send on Behalf permission, confirmed](images/04-05-send-on-behalf-permission-2.png)
+
+Confirmation that the Send on Behalf permission was applied.
 
 ---
 
@@ -86,7 +96,11 @@ Set-Mailbox -Identity 'support@VortexAI654.onmicrosoft.com' `
 
 ![Email forwarding configuration](images/04-06-email-forwarding-config.png)
 
+External forwarding being configured on the shared mailbox, with a copy retained in the mailbox itself.
+
 ![Email forwarding saved](images/04-07-email-forwarding-saved.png)
+
+Confirmation that the forwarding configuration was saved.
 
 ---
 
@@ -97,6 +111,8 @@ Set-Mailbox -Identity 'support@VortexAI654.onmicrosoft.com' -LitigationHoldEnabl
 ```
 
 ![Litigation hold applied](images/04-08-litigation-hold.png)
+
+Litigation hold applied to the mailbox, preserving its content independent of user-side deletion.
 
 ---
 

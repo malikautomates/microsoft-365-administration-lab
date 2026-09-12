@@ -37,6 +37,8 @@ Search-UnifiedAuditLog -StartDate (Get-Date).AddDays(-30) -EndDate (Get-Date) -R
 
 ![Audit log search: date range, activities, and users filters](images/10-01-audit-log-search.png)
 
+The unified audit log search page, with date range and activity filters set to investigate a specific window.
+
 ---
 
 ### Step 2 — Configure an alert policy
@@ -46,7 +48,11 @@ download activity reaches 15 or more events within a 60-minute window.
 
 ![New alert policy: activity condition and volume threshold](images/10-02-alert-policy-config.png)
 
+A new alert policy being configured to trigger on a volume threshold — 15 or more file downloads by one user within 60 minutes.
+
 ![Mass File Download alert policy created, High severity, notifying the administrator](images/10-03-alert-policy-created.png)
+
+The 'Mass File Download' alert policy created, set to High severity and notifying the administrator.
 
 ---
 
@@ -54,7 +60,11 @@ download activity reaches 15 or more events within a 60-minute window.
 
 ![Microsoft Secure Score overview](images/10-04-secure-score.png)
 
+The Microsoft Secure Score overview, showing the tenant's overall posture score and its breakdown by workload.
+
 ![Secure Score recommendation: turn on Microsoft Defender Antivirus](images/10-05-secure-score-recommendation.png)
+
+A specific Secure Score recommendation — turning on Microsoft Defender Antivirus — reviewed for remediation.
 
 ---
 
@@ -62,15 +72,23 @@ download activity reaches 15 or more events within a 60-minute window.
 
 ![Service health overview: active advisories affecting Exchange Online, Teams, and other workloads](images/10-06-service-health-overview.png)
 
+The Service health dashboard, showing active Microsoft-side advisories affecting several workloads.
+
 ![Message center overview](images/10-07-message-center-overview.png)
 
+The Message center inbox, where planned Microsoft 365 changes are reviewed as they arrive.
+
 ![Message center item detail](images/10-08-message-center-detail.png)
+
+A specific message center item opened to review its full impact and rollout timeline.
 
 ---
 
 ### Step 5 — Review usage reports
 
 ![Microsoft 365 apps usage report: activations by platform and licence assignment vs. activation](images/10-09-usage-reports.png)
+
+The Microsoft 365 apps usage report, showing activations by platform and licence assignment versus actual activation.
 
 ---
 
