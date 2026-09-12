@@ -1,9 +1,8 @@
 FirstName,LastName,Department,JobTitle,UsageLocation,LicenceGroup
-Dana,Okoye,Finance,Financial Controller,CA,LIC-BusinessPremium
-Adam,Whitfield,Finance,Accounts Assistant,CA,
-Priya,Raman,Operations,Operations Manager,CA,
-Sam,Achebe,Operations,Dispatcher,CA,
-Elena,Kovacs,Operations,Dispatcher,CA,
-Tomas,Lindqvist,Executive,Managing Director,CA,
-Ruth,Mensah,Field,Driver,CA,
-Ben,Carter,Field,Driver,CA,
+Grace,Richardson,Finance,Junior Accountant,CA,CONFIRM-licence-group-name
+Keith,Albalos,Finance,CONFIRM-job-title,CA,CONFIRM-licence-group-name
+Wale,Adebimpe,IT,CONFIRM-job-title,CA,CONFIRM-licence-group-name
+Frank,Dugald,CONFIRM-department,CONFIRM-job-title,CA,CONFIRM-licence-group-name
+John,Ebuka,CONFIRM-department,CONFIRM-job-title,CA,CONFIRM-licence-group-name
+Samuel,Banks,CONFIRM-department,CONFIRM-job-title,CA,CONFIRM-licence-group-name
+Sarah,Michealson,CONFIRM-department,CONFIRM-job-title,CA,CONFIRM-licence-group-name
