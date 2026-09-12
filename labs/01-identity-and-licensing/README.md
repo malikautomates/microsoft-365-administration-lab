@@ -1,23 +1,25 @@
 # Lab 01 — Identity and Licensing
 
-**Objective:** Provision user accounts from a controlled source file and assign licences
-through group membership rather than direct assignment.
-**Environment:** Microsoft 365 tenant `{{TENANT}}.onmicrosoft.com`, custom domain
-`{{ROOT_DOMAIN}}`.
+**Objective:** Provision staff accounts, assign licences, and build the group structure —
+both collaboration groups and a dedicated security group — that later labs depend on.
+**Environment:** Microsoft 365 tenant `VortexAI654.onmicrosoft.com`.
 **Prerequisites:** Lab 00.
-**Duration:** Approximately 60 minutes.
+**Duration:** Approximately 75 minutes.
 
 ---
 
 ## 1. Scenario
 
-`{{COMPANY}}` has eight staff across four departments requiring Microsoft 365 accounts. The
-organisation has one paid licence seat available and expects headcount to change.
+`Vortex AI` needed staff accounts created, licensed, and organised into groups before any
+security or collaboration policy could be scoped to them. Two accounts (Frank Dugald, Samuel
+Banks) were provisioned directly in this lab against an existing baseline of three staff
+accounts (John Ebuka, Keith Albalos, Wale Adebimpe) already present in the tenant. The rest of
+the roster is picked up in Lab 12's onboarding runbook, which documents the same process for a
+brand-new starter end to end.
 
-Two requirements shape the approach. Account creation must be repeatable, because the same
-process will be used for future joiners in Lab 11. Licence assignment must be auditable,
-because the organisation needs to establish who holds a licence and why without inspecting
-each account individually.
+`users.csv` in this folder records the full modelled roster and its intended department, job
+title, and licensing-group attributes. `[CONFIRM: ...]` markers there flag the fields not
+directly confirmed by a screenshot in this lab.
 
 ---
 
@@ -25,113 +27,70 @@ each account individually.
 
 | Decision | Options considered | Selected | Rationale |
 |---|---|---|---|
-| Account creation method | Admin center form; CSV with Graph PowerShell | CSV with Graph PowerShell | The form is not repeatable and produces inconsistent attribute population. A source file makes the intended state explicit and reviewable before execution. |
-| Licence assignment | Direct per-user; group-based | Group-based | Direct assignment leaves no record of intent and is routinely missed during offboarding. Group membership is declarative and reclaims the licence automatically on removal. |
-| Group membership type | Assigned; dynamic | Assigned for licensing, dynamic for departments | Dynamic membership on a licensing group risks consuming licences unintentionally when an attribute changes. Department groups carry no licence and are safe to make dynamic. |
-| Usage location | Set at creation; set before licensing | Set at creation | Licence assignment fails without it. Setting it at creation removes an ordering dependency. See section 5.1. |
-| Initial password | Static shared value; per-user random | Per-user random, change required at first sign-in | A shared initial password is a credential distribution problem and appears in the source file in plain text. |
+| Account creation method | Microsoft 365 admin center **Add a user** wizard; CSV import via Graph PowerShell | Admin center wizard | For a handful of accounts, the wizard is faster and its intent is directly reviewable on screen. A CSV-driven, idempotent Graph PowerShell script — the approach `users.csv` is designed for — is the better fit for a larger or repeated roster, and is the model Lab 11's lifecycle workflows build on instead. |
+| Licence assignment | Direct per-user; group-based | Direct, in this lab | The roster here is small enough that direct assignment is reviewable at a glance from the Licenses page. Group-based assignment is introduced deliberately in Lab 12, once the licensing security group already exists, so its declarative benefit over direct assignment can be demonstrated against a real onboarding event rather than a synthetic one. |
+| Group model | A single group type for everything; separate collaboration and security groups | Separate | `Finance`, `HR`, and `IT` are Microsoft 365 Groups / Teams — built for department collaboration (a shared mailbox, files, a Team). `Vortex-Security` is a dedicated cloud security group, scoped purely to resource access. Mixing the two would make an access review (Lab 11) unable to tell "who collaborates in Finance" apart from "who Finance's access policy actually applies to." |
 
 ---
 
 ## 3. Implementation
 
-### Step 1 — Define the source file
+### Step 1 — Orient in the admin centers
 
-Account intent is defined in `users.csv` rather than typed at the console. The file is
-reviewable, version-controlled, and reusable.
+The Microsoft 365 admin center and the Entra admin center were both used through this lab —
+the former for user and licence management, the latter for identity and group configuration.
 
-```csv
-FirstName,LastName,Department,JobTitle,UsageLocation,LicenceGroup
-Dana,Okoye,Finance,Financial Controller,CA,LIC-BusinessPremium
-Adam,Whitfield,Finance,Accounts Assistant,CA,
-Priya,Raman,Operations,Operations Manager,CA,
-Sam,Achebe,Operations,Dispatcher,CA,
-Elena,Kovacs,Operations,Dispatcher,CA,
-Tomas,Lindqvist,Executive,Managing Director,CA,
-Ruth,Mensah,Field,Driver,CA,
-Ben,Carter,Field,Driver,CA,
-```
+![Microsoft 365 admin center home page](images/01-01-entra-admin-center-home.png)
 
-Only one account is assigned to a licensing group, reflecting the single purchased seat. The
-remaining accounts are created unlicensed. This is deliberate: unlicensed accounts are used in
-Lab 12 to reproduce licence-related fault conditions.
+![Entra admin center overview: 4 users, 2 groups, 1 device, Identity Secure Score 73.68%](images/01-02-tenant-overview.png)
 
-> **Names in this file are fictional.** They exist to model departmental structure. No real
-> personal data is present in this repository.
+![Admin account overview: roles, groups, and last sign-in for the Global Administrator](images/01-03-admin-account-overview.png)
 
 ---
 
-### Step 2 — Connect with the required scopes
+### Step 2 — Add staff accounts
 
-```powershell
-Connect-MgGraph -Scopes 'User.ReadWrite.All',
-                        'Group.ReadWrite.All',
-                        'Organization.Read.All',
-                        'Directory.ReadWrite.All'
+New accounts were created through **Users → Active users → Add a user**, capturing basic
+identity and optional profile details at creation time.
 
-Get-MgContext | Select-Object Account, TenantId, Scopes
-```
+![Add a user wizard, basics step](images/01-04-add-user-start.png)
 
-![Graph connection established with explicit scopes](images/01-01-connect.png)
+![Optional settings step of the wizard, showing the contact-info fields left as placeholder data](images/01-05-new-user-basic-info.png)
 
----
+![Frank Dugald created](images/01-06-user-created-frank.png)
 
-### Step 3 — Create the accounts
+![Samuel Banks created](images/01-07-user-created-samuel.png)
 
-The script below is idempotent: an account that already exists is reported and skipped rather
-than causing a failure. This matters because the script is re-run in Lab 11.
+Before these two were added, the tenant already held three staff accounts — John Ebuka, Keith
+Albalos, and Wale Adebimpe — alongside the administrator.
 
-```powershell
-$domain = '{{ROOT_DOMAIN}}'
-$users  = Import-Csv -Path '.\users.csv'
-
-foreach ($user in $users) {
-    $upn = '{0}.{1}@{2}' -f $user.FirstName.ToLower(), $user.LastName.ToLower(), $domain
-
-    $existing = Get-MgUser -Filter "userPrincipalName eq '$upn'" -ErrorAction SilentlyContinue
-    if ($existing) {
-        Write-Host "skip    $upn (already exists)" -ForegroundColor Yellow
-        continue
-    }
-
-    # 16-character random initial password, changed at first sign-in.
-    $password = -join ((33..126) | Get-Random -Count 16 | ForEach-Object { [char]$_ })
-
-    $params = @{
-        DisplayName       = '{0} {1}' -f $user.FirstName, $user.LastName
-        GivenName         = $user.FirstName
-        Surname           = $user.LastName
-        UserPrincipalName = $upn
-        MailNickname      = '{0}.{1}' -f $user.FirstName.ToLower(), $user.LastName.ToLower()
-        Department        = $user.Department
-        JobTitle          = $user.JobTitle
-        UsageLocation     = $user.UsageLocation
-        AccountEnabled    = $true
-        PasswordProfile   = @{
-            Password                             = $password
-            ForceChangePasswordNextSignIn        = $true
-            ForceChangePasswordNextSignInWithMfa = $false
-        }
-    }
-
-    New-MgUser @params | Out-Null
-    Write-Host "created $upn" -ForegroundColor Green
-}
-```
-
-> The generated passwords are not written to disk or to the transcript. Because
-> `ForceChangePasswordNextSignIn` is set, the initial value must be delivered to each user
-> through an out-of-band channel and is reset on first use. In a production process this
-> handoff is the control point that matters most.
-
-![Accounts created from the source file](images/01-02-users-created.png)
+![All users at that point: John Ebuka, Keith Albalos, Muhammed Abdulmalik, Wale Adebimpe](images/01-08-all-users-created.png)
 
 ---
 
-### Step 4 — Identify the licence SKU
+### Step 3 — Review and edit profile attributes
 
-The `SkuId` is a GUID specific to the tenant's subscription and must be read from the tenant
-rather than assumed.
+The **Identity** and **Contact Information** panels in the Entra admin center's user properties
+page are where job title, department, and contact fields are reviewed and edited.
+
+![Admin account's Identity and Contact Information panels](images/01-09-admin-user-properties.png)
+
+The **Manage contact information** dialog was used to demonstrate setting Job title and
+Department — shown here against the administrator's own profile (Job title "HR Manager",
+Department "HR").
+
+![Manage contact information dialog: job title and department fields](images/01-10-user-department-attribute.png)
+
+The same fields were set for staff accounts, including Wale Adebimpe's department (IT) and
+Keith Albalos's contact information.
+
+![Wale Adebimpe's department set to IT](images/01-11-user-department-it-wale.png)
+
+![Keith Albalos's contact information](images/01-12-user-contact-info-keith.png)
+
+---
+
+### Step 4 — Review licensing
 
 ```powershell
 Get-MgSubscribedSku |
@@ -140,87 +99,69 @@ Get-MgSubscribedSku |
                   @{ n = 'Available'; e = { $_.PrepaidUnits.Enabled - $_.ConsumedUnits } }
 ```
 
-![Subscribed SKUs and available units](images/01-03-skus.png)
+![Licensing overview in the Microsoft 365 admin center](images/01-13-licensing-overview.png)
+
+![Entra admin center Licenses \| All products: Entra ID P2 at 0 of 25 assigned, Business Standard over-assigned at 4 of 1](images/01-14-licensing-page.png)
+
+The Business Standard over-assignment identified while baselining the tenant in Lab 00 carried
+through here directly: the administrator's own account shows Business Standard fully consumed
+(0 of 1 available), with the Microsoft 365 E5 trial's Entra ID P2 assigned alongside it instead.
+
+![Administrator's own Licenses and apps tab: Business Standard and Entra ID P2 both assigned](images/01-15-licensing-detail.png)
+
+![License usage report: Entra ID P1 and P2 both provisioned at 25 seats each](images/01-16-licence-usage.png)
 
 ---
 
-### Step 5 — Create the licensing group and assign the licence
+### Step 5 — Build the group structure
 
-```powershell
-$sku = Get-MgSubscribedSku | Where-Object SkuPartNumber -eq 'SPB'   # Business Premium
+`Finance` and `IT` (Microsoft 365 Groups / Teams) were created alongside the pre-existing `HR`
+and `All Company` groups, giving each modelled department a collaboration space.
 
-$group = New-MgGroup -DisplayName     'LIC-BusinessPremium' `
-                     -Description     'Licence assignment: Microsoft 365 Business Premium' `
-                     -MailEnabled:$false `
-                     -SecurityEnabled `
-                     -MailNickname    'lic-businesspremium'
+![Active teams and groups: All Company, Finance, HR, IT](images/01-17-groups-overview.png)
 
-Set-MgGroupLicense -GroupId $group.Id `
-                   -AddLicenses    @(@{ SkuId = $sku.SkuId }) `
-                   -RemoveLicenses @()
-```
+![Creating a security group](images/01-18-creating-security-group.png)
 
-Replace `SPB` with the `SkuPartNumber` returned in Step 4. The value differs by subscription:
-`SPB` for Business Premium, `SPE_E3` and `SPE_E5` for the enterprise tiers.
+![Security group created](images/01-19-security-group-created.png)
 
-![Licensing group created and licence attached](images/01-04-licence-group.png)
+A dedicated security group, `Vortex-Security`, was created separately from the collaboration
+groups above, scoped purely to resource access rather than department membership.
+
+![Vortex-Security group overview: Assigned membership, 2 direct members, Security type](images/01-20-security-group-info.png)
+
+![Finance group created](images/01-21-finance-group-created.png)
 
 ---
 
-### Step 6 — Add members and confirm inheritance
+### Step 6 — Verify membership management
 
-```powershell
-$user  = Get-MgUser  -Filter "userPrincipalName eq 'dana.okoye@{{ROOT_DOMAIN}}'"
-$group = Get-MgGroup -Filter "displayName eq 'LIC-BusinessPremium'"
+Adding and removing group members was exercised directly to confirm the mechanics before
+relying on them elsewhere.
 
-New-MgGroupMember -GroupId $group.Id -DirectoryObjectId $user.Id
-```
+![Adding members to a security group](images/01-22-adding-group-members.png)
 
-Licence assignment through a group is processed asynchronously and is not instantaneous. Allow
-a short interval before verifying.
+![Member added confirmation](images/01-23-member-added.png)
 
-```powershell
-Get-MgUserLicenseDetail -UserId $user.Id | Select-Object SkuPartNumber
+![Members can also be removed — the removal control in the same panel](images/01-24-member-removal-option.png)
 
-Get-MgUser -UserId $user.Id -Property 'assignedLicenses','licenseAssignmentStates' |
-    Select-Object -ExpandProperty LicenseAssignmentStates |
-    Select-Object SkuId, AssignedByGroup, State, Error
-```
-
-`AssignedByGroup` returning the group's object ID confirms the licence was inherited rather
-than assigned directly. A null value indicates direct assignment, which is the condition this
-design exists to avoid.
-
-![Licence inherited through group membership](images/01-05-licence-inherited.png)
+![Member removed from the security group](images/01-25-member-removed.png)
 
 ---
 
-### Step 7 — Create dynamic department groups
-
-Department groups carry no licence and are populated automatically from the `department`
-attribute set in Step 3.
+### Step 7 — Password reset and service health
 
 ```powershell
-$departments = 'Finance', 'Operations', 'Executive', 'Field'
-
-foreach ($dept in $departments) {
-    New-MgGroup -DisplayName                 "SEC-$dept" `
-                -Description                 "Dynamic membership: $dept department" `
-                -MailEnabled:$false `
-                -SecurityEnabled `
-                -MailNickname                "sec-$($dept.ToLower())" `
-                -GroupTypes                  'DynamicMembership' `
-                -MembershipRule              "(user.department -eq `"$dept`")" `
-                -MembershipRuleProcessingState 'On' | Out-Null
-
-    Write-Host "created SEC-$dept" -ForegroundColor Green
-}
+Connect-MgGraph -Scopes 'UserAuthenticationMethod.ReadWrite.All'
 ```
 
-Dynamic membership requires Microsoft Entra ID P1. Rule evaluation is asynchronous and
-typically completes within a few minutes of group creation.
+![Resetting Keith Albalos's password from the admin center](images/01-26-password-reset-keith.png)
 
-![Dynamic department groups created](images/01-06-dynamic-groups.png)
+![Password reset completed for Keith Albalos](images/01-27-password-reset-keith-done.png)
+
+The Service health dashboard was checked as a closing step, confirming no active incidents were
+affecting the workloads just configured.
+
+![Service health dashboard, no active incidents](images/01-28-service-health-dashboard.png)
 
 ---
 
@@ -228,107 +169,31 @@ typically completes within a few minutes of group creation.
 
 | Check | Command | Success criterion |
 |---|---|---|
-| Accounts created | `Get-MgUser` | Eight accounts present with correct UPN suffix |
-| Attributes populated | `Get-MgUser -Property department,jobTitle` | Department and job title set on every account |
-| Usage location set | `Get-MgUser -Property usageLocation` | No account with a null usage location |
-| Licence consumed | `Get-MgSubscribedSku` | `ConsumedUnits` incremented by one |
-| Licence inherited | `licenseAssignmentStates` | `AssignedByGroup` populated, `State` is `Active` |
-| Dynamic membership | `Get-MgGroupMember` | Members present matching the department rule |
-
-```powershell
-Get-MgUser -All -Property 'displayName','userPrincipalName','department','jobTitle','usageLocation' |
-    Select-Object DisplayName, UserPrincipalName, Department, JobTitle, UsageLocation |
-    Sort-Object Department, DisplayName |
-    Format-Table -AutoSize
-
-$group = Get-MgGroup -Filter "displayName eq 'SEC-Operations'"
-Get-MgGroupMember -GroupId $group.Id |
-    ForEach-Object { (Get-MgUser -UserId $_.Id).UserPrincipalName }
-```
-
-![All accounts with attributes populated](images/01-07-verify-users.png)
-
-![Dynamic group membership resolved](images/01-08-verify-dynamic.png)
+| Accounts created | Admin center → Active users | Frank Dugald and Samuel Banks present alongside the pre-existing roster |
+| Attributes populated | User Properties → Identity / Contact Information | Job title and department set on demonstrated accounts |
+| Licences assigned | Licenses → All products | Entra ID P2 consumption reflects assigned seats |
+| Groups created | Active teams and groups | `Finance`, `IT` present as Teams; `Vortex-Security` present as a Security group |
+| Group membership | Group → Members | Add and remove operations both confirmed working |
 
 ---
 
 ## 5. Faults encountered
 
-### 5.1 Licence assignment fails with a usage location error
-
-**Symptom.** Adding the user to the licensing group produced a licence assignment state of
-`Error` rather than `Active`:
-
-```powershell
-Get-MgUser -UserId $user.Id -Property 'licenseAssignmentStates' |
-    Select-Object -ExpandProperty LicenseAssignmentStates
-```
-
-The error reported was `UsageLocationRequired`.
-
-**Diagnosis.**
-
-```powershell
-Get-MgUser -UserId $user.Id -Property 'usageLocation' | Select-Object UsageLocation
-```
-
-The attribute was null.
-
-**Cause.** Microsoft 365 licences cannot be assigned without a usage location, because service
-availability differs by country. The requirement applies equally to direct and group-based
-assignment, but with group-based assignment the failure surfaces in the assignment state
-rather than as an immediate error, so it is easily missed.
-
-**Resolution.** Set the usage location, after which the assignment state resolves to `Active`
-without further action:
-
-```powershell
-Update-MgUser -UserId $user.Id -UsageLocation 'CA'
-```
-
-The account creation script in Step 3 sets `UsageLocation` at creation specifically to prevent
-this condition.
-
----
-
-### 5.2 Dynamic group membership rule accepted but no members added
-
-**Symptom.** `SEC-Finance` was created successfully with no error, but `Get-MgGroupMember`
-returned nothing after several minutes.
-
-**Diagnosis.**
-
-```powershell
-Get-MgGroup -Filter "displayName eq 'SEC-Finance'" `
-            -Property 'membershipRule','membershipRuleProcessingState','groupTypes' |
-    Select-Object MembershipRule, MembershipRuleProcessingState, GroupTypes
-```
-
-`MembershipRuleProcessingState` returned `Paused`.
-
-**Cause.** A dynamic group created without `-MembershipRuleProcessingState 'On'` is created in
-a paused state. The rule is stored but not evaluated. No error is raised.
-
-**Resolution.**
-
-```powershell
-Update-MgGroup -GroupId $group.Id -MembershipRuleProcessingState 'On'
-```
-
-> A second cause produces identical symptoms: a rule referencing an attribute that is null on
-> every user. Confirm the attribute is populated before concluding the rule is at fault.
+No new faults were observed during this lab. The Business Standard licence over-assignment
+identified while baselining the tenant (Lab 00 §5.1) is visible again here in the licensing
+screenshots — the fault was diagnosed and its resolution (the Microsoft 365 E5 trial) decided
+there, not repeated as a separate fault in this lab.
 
 ---
 
 ## 6. Capabilities demonstrated
 
-- User provisioning at scale using the Microsoft Graph PowerShell SDK
-- Idempotent scripting with pre-flight existence checks
-- Group-based licence assignment and inheritance verification
-- Dynamic group membership rule authoring and troubleshooting
-- Microsoft 365 licence SKU identification and consumption tracking
-- Secure initial credential handling
-- Diagnosis of asynchronous assignment failures via licence assignment state
+- User provisioning via the Microsoft 365 admin center
+- Profile attribute management (job title, department, contact information)
+- Licence assignment review and interpretation of over-assignment warnings
+- Group design: separating collaboration groups (Microsoft 365 Groups / Teams) from a
+  dedicated security group scoped to resource access
+- Group membership management: adding and removing members with verification
 
 ---
 
@@ -336,10 +201,8 @@ Update-MgGroup -GroupId $group.Id -MembershipRuleProcessingState 'On'
 
 | Source | Behaviour confirmed |
 |---|---|
-| Microsoft Learn — *Assign licenses to users by group membership* | Asynchronous processing and `AssignedByGroup` behaviour |
-| Microsoft Learn — *Dynamic membership rules for groups* | Rule syntax and processing state semantics |
-| Microsoft Learn — *Microsoft 365 product names and service plan identifiers* | `SkuPartNumber` to product mapping |
-| `Get-Help New-MgUser -Full` | Required scopes and parameter set |
+| Microsoft Learn — *Microsoft 365 groups vs. security groups* | When to use a Microsoft 365 Group versus a dedicated security group |
+| Microsoft Learn — *Assign licenses to users by group membership* | Direct vs. group-based assignment trade-offs, picked up in Lab 12 |
 
 ---
 
@@ -347,11 +210,31 @@ Update-MgGroup -GroupId $group.Id -MembershipRuleProcessingState 'On'
 
 | File | Content |
 |---|---|
-| `01-01-connect.png` | `Get-MgContext` showing account and granted scopes |
-| `01-02-users-created.png` | Script output showing accounts created |
-| `01-03-skus.png` | `Get-MgSubscribedSku` with available units |
-| `01-04-licence-group.png` | Licensing group created with licence attached |
-| `01-05-licence-inherited.png` | `AssignedByGroup` populated, state `Active` |
-| `01-06-dynamic-groups.png` | Dynamic department groups created |
-| `01-07-verify-users.png` | All accounts with attributes populated |
-| `01-08-verify-dynamic.png` | Resolved dynamic group membership |
+| `01-01-entra-admin-center-home.png` | Microsoft 365 admin center home page |
+| `01-02-tenant-overview.png` | Entra admin center tenant overview |
+| `01-03-admin-account-overview.png` | Administrator account overview |
+| `01-04-add-user-start.png` | Add a user wizard, basics step |
+| `01-05-new-user-basic-info.png` | Optional settings step, placeholder contact fields |
+| `01-06-user-created-frank.png` | Frank Dugald created |
+| `01-07-user-created-samuel.png` | Samuel Banks created |
+| `01-08-all-users-created.png` | Pre-existing staff roster before this lab's additions |
+| `01-09-admin-user-properties.png` | Identity and Contact Information panels |
+| `01-10-user-department-attribute.png` | Manage contact information dialog |
+| `01-11-user-department-it-wale.png` | Wale Adebimpe's department set to IT |
+| `01-12-user-contact-info-keith.png` | Keith Albalos's contact information |
+| `01-13-licensing-overview.png` | Licensing overview |
+| `01-14-licensing-page.png` | Entra Licenses \| All products |
+| `01-15-licensing-detail.png` | Administrator's own licence assignment |
+| `01-16-licence-usage.png` | License usage report |
+| `01-17-groups-overview.png` | Active teams and groups |
+| `01-18-creating-security-group.png` | Creating a security group |
+| `01-19-security-group-created.png` | Security group created |
+| `01-20-security-group-info.png` | Vortex-Security group overview |
+| `01-21-finance-group-created.png` | Finance group created |
+| `01-22-adding-group-members.png` | Adding members to a security group |
+| `01-23-member-added.png` | Member added confirmation |
+| `01-24-member-removal-option.png` | Member removal control |
+| `01-25-member-removed.png` | Member removed |
+| `01-26-password-reset-keith.png` | Password reset in progress |
+| `01-27-password-reset-keith-done.png` | Password reset completed |
+| `01-28-service-health-dashboard.png` | Service health dashboard |
