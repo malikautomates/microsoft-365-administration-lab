@@ -15,10 +15,8 @@ model, and security baseline.
 All labs inherit these standards. Where a lab deviates, the deviation is stated explicitly in
 that lab's documentation.
 
-> **Naming placeholders.** This repository is distributed with tokenised organisation names
-> (`{{COMPANY}}`, `{{ROOT_DOMAIN}}`, `{{TENANT}}`). Execute
-> `scripts/Set-LabName.ps1` to apply a chosen organisation name across all documentation and
-> scripts. Selection criteria are documented in [naming.md](naming.md).
+> **Naming.** The modelled organisation name has been applied repository-wide. Selection
+> criteria and the values chosen are recorded in [naming.md](naming.md).
 
 ---
 
@@ -81,16 +79,16 @@ Lab 02.
 
 | Object | Convention | Example |
 |---|---|---|
-| Tenant (initial domain) | `{{TENANT}}.onmicrosoft.com` | Assigned at tenant creation, immutable |
-| Custom domain | `{{ROOT_DOMAIN}}` | Added and verified in Lab 00 |
-| User principal name | `first.last@{{ROOT_DOMAIN}}` | `dana.okoye@{{ROOT_DOMAIN}}` |
-| Administrative account | `first.last.adm@{{ROOT_DOMAIN}}` | Excluded from Conditional Access break-glass scope |
-| Break-glass account | `emergency-access-01@{{TENANT}}.onmicrosoft.com` | Held on the initial domain deliberately — see section 6 |
+| Tenant (initial domain) | `VortexAI654.onmicrosoft.com` | Assigned at tenant creation, immutable |
+| Custom domain | None added | This environment runs on the initial `.onmicrosoft.com` domain throughout — the documented fallback in [naming.md](naming.md) §3.2, used deliberately rather than by omission |
+| User principal name | `first.last@VortexAI654.onmicrosoft.com` | `grace@VortexAI654.onmicrosoft.com` |
+| Administrative account | `first.last.adm@VortexAI654.onmicrosoft.com` | Excluded from Conditional Access break-glass scope |
+| Break-glass account | `emergency-access-01@VortexAI654.onmicrosoft.com` | Held on the initial domain deliberately — see section 6 |
 | Security group (licensing) | `LIC-<SKU>` | `LIC-BusinessPremium` |
 | Security group (access) | `SEC-<Resource>-<RW or RO>` | `SEC-Finance-RW` |
 | Distribution group | `DL-<Purpose>` | `DL-AllStaff` |
 | Microsoft 365 group / Team | `<Department>` | `Finance` |
-| Shared mailbox | `<purpose>@{{ROOT_DOMAIN}}` | `info@{{ROOT_DOMAIN}}` |
+| Shared mailbox | `<purpose>@VortexAI654.onmicrosoft.com` | `info@VortexAI654.onmicrosoft.com` |
 
 **Licensing group prefix.** Licence assignment groups are prefixed `LIC-` and are used for no
 other purpose. Mixing licence assignment into access groups makes entitlement review
@@ -115,18 +113,24 @@ Business Premium and E3/E5. This is a factor in the tenant selection recorded in
 
 ### 4.2 Modelled organisation
 
-The tenant models a small organisation with the following departments. This structure drives
-group design, licensing, and policy scoping across all labs.
+The tenant models a small organisation of eight accounts: one administrator and seven staff
+across Finance and IT, plus a Support mailbox. This structure drives group design, licensing,
+and policy scoping across all labs.
 
-| Department | Headcount modelled | Licence tier |
+| Account | Role / group | Licence tier |
 |---|---|---|
-| Executive | 1 | Premium |
-| Finance | 2 | Premium |
-| Operations | 3 | Premium |
-| Field staff | 2 | Frontline (F-tier, where available) |
+| Muhammed Abdulmalik | Global Administrator | Microsoft 365 E5, Defender for Office 365 (Plan 2), Entra ID P2 |
+| Grace Richardson | Finance (Junior Accountant) | Entra ID P2, Microsoft 365 E5 |
+| Keith Albalos | Finance | Microsoft 365 E5, Entra ID P2 |
+| Wale Adebimpe | IT — later Helpdesk Administrator (Lab 12) | Microsoft 365 E5, Entra ID P2 |
+| Frank Dugald | HR, IT | Microsoft 365 E5, Entra ID P2 — offboarded in Lab 12 |
+| John Ebuka | `[CONFIRM: department]` | Microsoft 365 E5, Entra ID P2 |
+| Samuel Banks | `[CONFIRM: department]` | Entra ID P2, Microsoft 365 E5 |
+| Sarah Michealson | `[CONFIRM: department]` | Entra ID Governance, Entra ID P2, Microsoft 365 E5 |
+| Support | Shared mailbox | Entra ID P2 |
 
-Total: 8 modelled users, of which a subset are licensed. Unlicensed accounts are used
-deliberately in Lab 12 to reproduce licence-related fault conditions.
+Unlicensed accounts are used deliberately in Lab 12 to reproduce licence-related fault
+conditions.
 
 ---
 
