@@ -118,8 +118,8 @@ active users list reviewed across Labs 01 and 12.
 **Resolution.** Because the policy built here was created in report-only mode and scoped to
 specific users rather than enforced tenant-wide, the absence of a break-glass account did not
 create a lockout risk in this instance. It remains a real gap against the documented standard.
-`[CONFIRM: was a break-glass account created outside of what these screenshots capture?]` If
-not, creating two — on the initial domain, excluded from all Conditional Access policies,
+No break-glass account appears in any active-users list captured in this repository (Labs 01
+and 12), so it is treated as not created. Creating two — on the initial domain, excluded from all Conditional Access policies,
 credentials stored offline — should happen before any policy in this lab is switched from
 Report-only to On.
 

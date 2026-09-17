@@ -158,8 +158,8 @@ reviewed against the account used to open the link.
 
 **Cause.** The access package was not configured to accept requests from the account being
 tested with — either scoped to a specific requestor group that account isn't in, or requiring
-direct assignment rather than self-service requests. `[CONFIRM: exact requestor policy applied
-to Sales Data Access Package]`.
+direct assignment rather than self-service requests. The package's requestor policy (the
+*Requests* tab) was not captured in the screenshots, so which of the two applied is not recorded.
 
 **Resolution.** Confirmed as expected behaviour rather than a defect: an access package that
 silently accepted requests from anyone with the link would defeat the purpose of scoping it in

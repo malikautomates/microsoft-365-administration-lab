@@ -78,8 +78,8 @@ The Licenses page, showing a single Microsoft 365 Business Standard subscription
 ### Step 4 — Close the gap with a Microsoft 365 E5 trial
 
 A Microsoft 365 E5 trial was activated from **Billing → Purchase services** to stack alongside
-the existing Business Standard subscription. `[CONFIRM: exact activation date and trial
-duration]` — the trial's effect is visible from Lab 01 onward, where accounts consistently carry
+the existing Business Standard subscription. The activation date was not captured in this lab's
+screenshots — the trial's effect is visible from Lab 01 onward, where accounts consistently carry
 Microsoft 365 E5 and Microsoft Entra ID P2 licences, and Lab 09 confirms 25 total Intune
 licences available across the tenant.
 

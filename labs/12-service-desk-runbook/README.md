@@ -248,7 +248,9 @@ The account's password reset as a final containment step, after access was alrea
 **Diagnosis.** The helpdesk administrator reviewed the account's sign-in state and determined
 the issue was password-related rather than a block, licence, or Conditional Access denial.
 
-**Cause.** `[CONFIRM: exact root cause — expired password vs. forgotten password]`.
+**Cause.** Password-related; whether the password had expired or been forgotten was not recorded
+at the time. The resolution screenshots show the reset on Samuel Banks's account, with an
+auto-generated password and a forced change at next sign-in, which resolves either case.
 
 **Resolution.** Password reset by the helpdesk administrator, using exactly the Helpdesk
 Administrator role scope assigned in Step 4 rather than requiring Global Administrator

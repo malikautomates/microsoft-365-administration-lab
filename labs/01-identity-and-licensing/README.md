@@ -18,8 +18,9 @@ the roster is picked up in Lab 12's onboarding runbook, which documents the same
 brand-new starter end to end.
 
 `users.csv` in this folder records the full modelled roster and its intended department, job
-title, and licensing-group attributes. `[CONFIRM: ...]` markers there flag the fields not
-directly confirmed by a screenshot in this lab.
+title, and licence attributes. Values come from the screenshots in this lab and Lab 12; a blank
+Department or JobTitle means the attribute was not set on that account. Licences in this lab were
+assigned directly, not through a licensing group — group-based licensing is introduced in Lab 12.
 
 ---
 

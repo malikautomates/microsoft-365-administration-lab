@@ -1,8 +1,8 @@
-FirstName,LastName,Department,JobTitle,UsageLocation,LicenceGroup
-Grace,Richardson,Finance,Junior Accountant,CA,CONFIRM-licence-group-name
-Keith,Albalos,Finance,CONFIRM-job-title,CA,CONFIRM-licence-group-name
-Wale,Adebimpe,IT,CONFIRM-job-title,CA,CONFIRM-licence-group-name
-Frank,Dugald,CONFIRM-department,CONFIRM-job-title,CA,CONFIRM-licence-group-name
-John,Ebuka,CONFIRM-department,CONFIRM-job-title,CA,CONFIRM-licence-group-name
-Samuel,Banks,CONFIRM-department,CONFIRM-job-title,CA,CONFIRM-licence-group-name
-Sarah,Michealson,CONFIRM-department,CONFIRM-job-title,CA,CONFIRM-licence-group-name
+FirstName,LastName,Department,JobTitle,UsageLocation,Licences
+Grace,Richardson,Finance,Junior Accountant,CA,Microsoft 365 E5;Microsoft Entra ID P2
+Keith,Albalos,Finance,Financial manager,CA,Microsoft 365 E5;Microsoft Entra ID P2
+Wale,Adebimpe,IT,IT Manager,CA,Microsoft 365 E5;Microsoft Entra ID P2
+Frank,Dugald,,,CA,Microsoft 365 E5;Microsoft Entra ID P2
+John,Ebuka,,,CA,Microsoft 365 E5;Microsoft Entra ID P2
+Samuel,Banks,,,CA,Microsoft 365 E5;Microsoft Entra ID P2
+Sarah,Michealson,,,CA,Microsoft 365 E5;Microsoft Entra ID P2;Microsoft Entra ID Governance

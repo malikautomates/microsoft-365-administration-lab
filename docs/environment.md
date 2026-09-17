@@ -124,9 +124,9 @@ and policy scoping across all labs.
 | Keith Albalos | Finance | Microsoft 365 E5, Entra ID P2 |
 | Wale Adebimpe | IT — later Helpdesk Administrator (Lab 12) | Microsoft 365 E5, Entra ID P2 |
 | Frank Dugald | HR, IT | Microsoft 365 E5, Entra ID P2 — offboarded in Lab 12 |
-| John Ebuka | `[CONFIRM: department]` | Microsoft 365 E5, Entra ID P2 |
-| Samuel Banks | `[CONFIRM: department]` | Entra ID P2, Microsoft 365 E5 |
-| Sarah Michealson | `[CONFIRM: department]` | Entra ID Governance, Entra ID P2, Microsoft 365 E5 |
+| John Ebuka | Staff — Helpdesk Administrator role holder (Lab 02); department attribute not set | Microsoft 365 E5, Entra ID P2 |
+| Samuel Banks | Staff — subject of the account-lockout case (Lab 12); department attribute not set | Entra ID P2, Microsoft 365 E5 |
+| Sarah Michealson | Staff — department attribute not set | Entra ID Governance, Entra ID P2, Microsoft 365 E5 |
 | Support | Shared mailbox | Entra ID P2 |
 
 Unlicensed accounts are used deliberately in Lab 12 to reproduce licence-related fault
