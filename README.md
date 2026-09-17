@@ -162,5 +162,8 @@ values chosen are in [docs/naming.md](docs/naming.md).
 
 ## Contact
 
-- **Email:** `[CONFIRM: add contact email]`
-- **LinkedIn:** `[CONFIRM: add LinkedIn URL]`
+- **Email:** [m.abdulmaliksani008@gmail.com](mailto:m.abdulmaliksani008@gmail.com)
+- **LinkedIn:** [linkedin.com/in/muhammed-abdulmalik-a84131267](https://www.linkedin.com/in/muhammed-abdulmalik-a84131267)
+- **GitHub:** [@malikautomates](https://github.com/malikautomates)
+
+Released under the [MIT License](LICENSE).
